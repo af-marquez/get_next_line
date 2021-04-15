@@ -6,7 +6,7 @@
 /*   By: amarquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 14:47:28 by amarquez          #+#    #+#             */
-/*   Updated: 2021/04/08 14:41:20 by amarquez         ###   ########.fr       */
+/*   Updated: 2021/04/15 16:13:16 by amarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,3 @@ char	*ft_strchr(const char *str, int ch)
 		return (str1 + index);
 	return (0);
 }
-
