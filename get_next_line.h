@@ -6,15 +6,18 @@
 /*   By: amarquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 14:47:42 by amarquez          #+#    #+#             */
-/*   Updated: 2021/04/15 15:36:33 by amarquez         ###   ########.fr       */
+/*   Updated: 2021/04/16 17:40:21 by amarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef		"GET_NEXT_LINE.H"
- # define	"GET_NEXT_LINE.H"
+#ifndef	"GET_NEXT_LINE.H"
+# define	"GET_NEXT_LINE.H"
+#define	BUFF_SIZE 1024
+
+
 #include <unistd.h>
 #include <stdlib.h>
 #include <limits.h>
 
-
+//escrever aqui os parametros e funcoes
 
