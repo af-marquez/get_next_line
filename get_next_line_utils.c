@@ -6,7 +6,7 @@
 /*   By: amarquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 14:47:28 by amarquez          #+#    #+#             */
-/*   Updated: 2021/04/15 16:13:16 by amarquez         ###   ########.fr       */
+/*   Updated: 2021/04/20 19:02:48 by amarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (newstr);
 }
 
-char	*ft_strchr(const char *str, int ch)
+char	*ft_strchr(const char *str, int c)
 {
 	unsigned int	index;
 	char			*str1;
@@ -80,11 +80,9 @@ char	*ft_strchr(const char *str, int ch)
 
 	while (*(str1 +index))
 	{
-		if (*(str1 + index) == (char)ch)
+		if (*(str1 + index) == (char)c)
 			return (str1 + index)
 		index++;
 	}
-	if (ch == 0)
-		return (str1 + index);
 	return (0);
 }
