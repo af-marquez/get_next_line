@@ -6,7 +6,7 @@
 /*   By: amarquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 14:47:13 by amarquez          #+#    #+#             */
-/*   Updated: 2021/04/16 15:57:14 by amarquez         ###   ########.fr       */
+/*   Updated: 2021/04/20 14:13:23 by amarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,19 @@
 */
 int	get_next_line(int fd, char **line)
 {
+	//mantem nr de linhas lidas ate ao fim do prog. openmax significa o nr maximo aberto possivel de acordo com limits.h
+	static char	*keep[OPEN_MAX];
+	//mantem linha lida e vai ser junta com a linha salva
+	char		buff[BUFFER_SIZE + 1];
+	//conta nr linhas lidas
+	int 		n_r;
+
+	n_r = read(fd , buff, BUFFER_SIZE) 
+	// determinar se 'e linha ou nao
+	ft_strchr()
+	//se sim copiar str no keep[fd]
+	//
 	
+	// se nao for linha uma funcao le o file com o mesmo tamanho
+	return ();
 }
