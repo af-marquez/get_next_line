@@ -6,7 +6,7 @@
 /*   By: amarquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 14:47:13 by amarquez          #+#    #+#             */
-/*   Updated: 2021/04/20 20:47:05 by amarquez         ###   ########.fr       */
+/*   Updated: 2021/04/21 20:18:28 by amarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,33 +15,84 @@ int	get_next_line(int fd, char **line)
 	//guarda posição onde é lido
 	static char	*keep[2048];
 	//mantem linha lida e vai ser junta com a linha salva
-	char		*buf_temp[BUFFER_SIZE + 1];
+	char		*buf[BUFFER_SIZE + 1];
 	//conta nr linhas lidas
 	int 		n_read;
-	
-	if (!line || (read(fd, 0 ,0) == -1) || BUFFER_SIZE < 1 || !buf_temp)
+	char 		*new_line;
+	int 		index;
+	char		*line_keep;
+	int			j;
+
+	if (!line || (read(fd, 0 ,0) == -1) || BUFFER_SIZE < 1 || !buf)
 		return (-1);
 	// n_read = -1 erro , zero EOF ou 1 linha lida
-	
 	// determinar se é linha ou nao
-	while (ft_strchr(keep[fd], '\n') == 0)
+	while (ft_strchr(keep[fd], '\n') == 0 && n_read != 0)
 	{
-		n_read = read(fd, buf_temp, BUFF_SIZE)
+		n_read = read(fd, buf, BUFF_SIZE)
 		if (n_read == -1)
 		{
-			free(buf_temp);
+			free(buf);
 			return(-1);
 		}
-		buf_temp[n_read] = '\0';
+		buf[n_read] = '\0';
+		keep[fd] = ft_strjoin(keep[fd],buf);
+	}
+	free (buf);
+	
+	// ....
+	
+	new_line =malloc(sizeof(char)) * (ft_strchr(buff, \n) + 1);
+	if (!new_line)
+		return (NULL);
+	while (buf[index] != '\n' && buf[index])
+	{
+		new_line[index] = buff[index];
+		index++;
+	}
+	new_line[index] = '\0';
+	*line = new_line;
+	index = ft_strchr(buf, '\n');
+	if (!buf[index])
+	{
+		free(buf);
+		return (NULL);
+	}
+	line_keep = malloc(sizeof(char) * ft_strlen(buf) - index + 1;
+	index++;
+	j = 0;
+	while (buf[a])
+	{
+		line_keep[j] = buf[index];
+		j++;
+		index++;
+	}
+	line_keep = '\0';
+	free(buf);
+	keep[fd] = line_keep;
 
-		if (
-	ft_strchr(keep[fd], '\n');
+
+	return();
+}
 	//se sim copiar str no keep[fd]
 	//*line = até \n
 	//keep[fd] = depois de \n
+/*
+Enquanto strchr nao tiver \n 
+	n-read (int) = (valor do read, a info vai para o buf)
+	se der erro dar free ao buff
+	
+	senao colocar /0 onde n-read ficou no buf ou seja buff[n_read] = \0
+	e juntar keep[fd] com buf usando strjoin
 
-	
-	
-	// se nao for linha uma funcao le o file com o mesmo tamanho
-	return ();
-}
+Libertar buf 
+Declarar valor de line antes de \n
+	##
+	Usar strchr 
+	Criar line malloc car  o valor strchr +1
+	Colocar la dentro o valor do buf com index
+
+Colocar valor no keep do restante que foi lido %%
+	%%
+	Criar line e tirar a parte da frente
+	Colocar la dentro*/
