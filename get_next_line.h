@@ -6,18 +6,25 @@
 /*   By: amarquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 14:47:42 by amarquez          #+#    #+#             */
-/*   Updated: 2021/04/17 14:19:27 by amarquez         ###   ########.fr       */
+/*   Updated: 2021/04/22 11:58:26 by amarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	"GET_NEXT_LINE.H"
-# define	"GET_NEXT_LINE.H"
-#define	BUFF_SIZE 1024
+#ifndef		GET_NEXT_LINE_H
+# define	GET_NEXT_LINE_H
 
+#ifndef		BUFFER_SIZE
+# define	BUFFER_SIZE 1024
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <limits.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <limits.h>
 
-//escrever aqui os parametros e funcoes
+#endif
 
+int	get_next_line(int fd, char **line);
+int	ft_strlen(const char *str);
+char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strchr(char *str, int c);
+
+#endif

@@ -6,11 +6,11 @@
 /*   By: amarquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 14:47:28 by amarquez          #+#    #+#             */
-/*   Updated: 2021/04/20 19:02:48 by amarquez         ###   ########.fr       */
+/*   Updated: 2021/04/22 11:30:37 by amarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-size_t	ft_strlen(const char *str)
+int	ft_strlen(const char *str)
 {
 	size_t	len;
 
@@ -22,31 +22,11 @@ size_t	ft_strlen(const char *str)
 	}
 	return (len);
 }
-
-char	*ft_strdup(const char *s1)
-{
-	char	*new;
-	int		index;
-
-	index = 0;
-	new = malloc(sizeof(char) * ft_strlen(s) + 1);
-	if (!new)
-		return (0);
-	if (!s1)
-		return (0);
-	while (s1[index] != '\0')
-	{
-		new[index] =s1[index];
-		index ++;
-	}
-	new[index] = '\0';
-	return (new);
-}
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char			*newstr;
 	unsigned int	jindex;
-	unsigend int 	index;
+	unsigned int 	index;
 
 	index = 0;
 	jindex = 0;
@@ -70,7 +50,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (newstr);
 }
 
-char	*ft_strchr(const char *str, int c)
+char	*ft_strchr(char *str, int c)
 {
 	unsigned int	index;
 	char			*str1;
@@ -81,7 +61,7 @@ char	*ft_strchr(const char *str, int c)
 	while (*(str1 +index))
 	{
 		if (*(str1 + index) == (char)c)
-			return (str1 + index)
+			return (str1 + index);
 		index++;
 	}
 	return (0);
