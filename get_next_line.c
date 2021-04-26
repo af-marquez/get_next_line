@@ -6,7 +6,7 @@
 /*   By: amarquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 14:47:13 by amarquez          #+#    #+#             */
-/*   Updated: 2021/04/22 11:24:32 by amarquez         ###   ########.fr       */
+/*   Updated: 2021/04/26 15:43:18 by amarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	get_next_line(int fd, char **line)
 	//guarda posição onde é lido
 	static char	*keep[2048];
 	//mantem linha lida e vai ser junta com a linha salva
-	char		*buf[BUFFER_SIZE + 1];
+	char		buf[BUFFER_SIZE + 1];
 	//conta nr linhas lidas
 	int 		n_read;
 	char 		*new_line;
@@ -39,7 +39,7 @@ int	get_next_line(int fd, char **line)
 			free(buf);
 			return(-1);
 		}
-		buf[n_read] = '\0';
+		buf[n_read] = 0;
 		keep[fd] = ft_strjoin(keep[fd],buf);
 	}
 	free (buf);
@@ -48,7 +48,7 @@ int	get_next_line(int fd, char **line)
 	
 	new_line =(char *)malloc((sizeof(char)) * (ft_strchr(buf, '\n') + 1));
 	if (!new_line)
-		return (NULL);
+		return (0);
 	while (buf[index] != '\n' && buf[index])
 	{
 		new_line[index] = buf[index];
@@ -63,18 +63,18 @@ int	get_next_line(int fd, char **line)
 	if (!buf[index])
 	{
 		free(buf);
-		return (NULL);
+		return (0);
 	}
-	line_keep = malloc(sizeof(char)) * ft_strlen(buf) - index + 1;
+	line_keep = (char *)malloc(sizeof(char)) * ft_strlen(buf) - index + 1;
 	index++;
 	j = 0;
-	while (buf[a])
+	while (buf[index])
 	{
 		line_keep[j] = buf[index];
 		j++;
 		index++;
 	}
-	line_keep = '\0';
+	line_keep = 0;
 	free(buf);
 	keep[fd] = line_keep;
 	

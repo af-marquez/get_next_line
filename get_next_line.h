@@ -6,7 +6,7 @@
 /*   By: amarquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 14:47:42 by amarquez          #+#    #+#             */
-/*   Updated: 2021/04/22 11:58:26 by amarquez         ###   ########.fr       */
+/*   Updated: 2021/04/26 13:28:23 by amarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 #ifndef		BUFFER_SIZE
 # define	BUFFER_SIZE 1024
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <limits.h>
-
 #endif
+
+#include <unistd.h>
+#include <stdlib.h>
+#include <limits.h>
 
 int	get_next_line(int fd, char **line);
 int	ft_strlen(const char *str);

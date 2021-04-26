@@ -6,13 +6,13 @@
 /*   By: amarquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 14:47:28 by amarquez          #+#    #+#             */
-/*   Updated: 2021/04/22 11:30:37 by amarquez         ###   ########.fr       */
+/*   Updated: 2021/04/26 15:43:12 by amarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_strlen(const char *str)
 {
-	size_t	len;
+	int	len;
 
 	len = 0;
 	while (*str)
@@ -52,7 +52,7 @@ char	*ft_strjoin(char *s1, char *s2)
 
 char	*ft_strchr(char *str, int c)
 {
-	unsigned int	index;
+	int	index;
 	char			*str1;
 
 	str1 = (char *)str;
