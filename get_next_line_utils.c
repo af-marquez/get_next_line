@@ -6,13 +6,13 @@
 /*   By: amarquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 14:47:28 by amarquez          #+#    #+#             */
-/*   Updated: 2021/04/26 15:43:12 by amarquez         ###   ########.fr       */
+/*   Updated: 2021/04/28 12:16:58 by amarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strlen(const char *str)
+size_t	ft_strlen(const char *str)
 {
-	int	len;
+	size_t	len;
 
 	len = 0;
 	while (*str)
@@ -32,7 +32,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	jindex = 0;
 	if (!s1 || !s2)
 		return (0);
-	newstr = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	newstr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!newstr)
 		return (0);
 	while (s1[index])

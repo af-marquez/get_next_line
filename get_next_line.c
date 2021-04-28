@@ -6,7 +6,7 @@
 /*   By: amarquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 14:47:13 by amarquez          #+#    #+#             */
-/*   Updated: 2021/04/26 15:43:18 by amarquez         ###   ########.fr       */
+/*   Updated: 2021/04/28 12:11:32 by amarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	get_next_line(int fd, char **line)
 	
 	// ....
 	
-	new_line =(char *)malloc((sizeof(char)) * (ft_strchr(buf, '\n') + 1));
+	new_line =malloc(ft_strchr(buf, '\n') + 1);
 	if (!new_line)
 		return (0);
 	while (buf[index] != '\n' && buf[index])
@@ -59,13 +59,13 @@ int	get_next_line(int fd, char **line)
 	
 	// ....
 	
-	index = ft_strchr(buf, '\n');
+	index = *ft_strchr(buf, '\n');
 	if (!buf[index])
 	{
 		free(buf);
 		return (0);
 	}
-	line_keep = (char *)malloc(sizeof(char)) * ft_strlen(buf) - index + 1;
+	line_keep = malloc(ft_strlen(buf) - index + 1);
 	index++;
 	j = 0;
 	while (buf[index])
