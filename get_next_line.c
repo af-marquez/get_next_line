@@ -6,7 +6,7 @@
 /*   By: amarquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 14:47:13 by amarquez          #+#    #+#             */
-/*   Updated: 2021/04/28 12:11:32 by amarquez         ###   ########.fr       */
+/*   Updated: 2021/04/28 15:51:21 by amarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	get_next_line(int fd, char **line)
 {
 	//guarda posição onde é lido
-	static char	*keep[2048];
+	static char	*keep[OPEN_MAX];
 	//mantem linha lida e vai ser junta com a linha salva
 	char		buf[BUFFER_SIZE + 1];
 	//conta nr linhas lidas
@@ -24,6 +24,7 @@ int	get_next_line(int fd, char **line)
 	int 		index;
 	char		*line_keep;
 	int			j;
+	int		len;
 
 	if (!line || (read(fd, 0 ,0) == -1) || BUFFER_SIZE < 1)
 		return (-1);
@@ -45,10 +46,11 @@ int	get_next_line(int fd, char **line)
 	free (buf);
 	
 	// ....
-	
-	new_line =malloc(ft_strchr(buf, '\n') + 1);
+	len = ft_strlen(ft_strchr(buf, '\n'));	
+	new_line =malloc(sizeof(char) * (len + 1));
 	if (!new_line)
 		return (0);
+	index = 0;
 	while (buf[index] != '\n' && buf[index])
 	{
 		new_line[index] = buf[index];
@@ -59,7 +61,7 @@ int	get_next_line(int fd, char **line)
 	
 	// ....
 	
-	index = *ft_strchr(buf, '\n');
+	index = ft_strlen(ft_strchr(buf, '\n'));
 	if (!buf[index])
 	{
 		free(buf);
@@ -85,25 +87,3 @@ int	get_next_line(int fd, char **line)
 	else
 		return(1);
 }
-	//se sim copiar str no keep[fd]
-	//*line = até \n
-	//keep[fd] = depois de \n
-/*
-Enquanto strchr nao tiver \n 
-	n-read (int) = (valor do read, a info vai para o buf)
-	se der erro dar free ao buff
-	
-	senao colocar /0 onde n-read ficou no buf ou seja buff[n_read] = \0
-	e juntar keep[fd] com buf usando strjoin
-
-Libertar buf 
-Declarar valor de line antes de \n
-	##
-	Usar strchr 
-	Criar line malloc car  o valor strchr +1
-	Colocar la dentro o valor do buf com index
-
-Colocar valor no keep do restante que foi lido %%
-	%%
-	Criar line e tirar a parte da frente
-	Colocar la dentro*/

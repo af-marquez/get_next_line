@@ -6,9 +6,11 @@
 /*   By: amarquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 14:47:28 by amarquez          #+#    #+#             */
-/*   Updated: 2021/04/28 12:16:58 by amarquez         ###   ########.fr       */
+/*   Updated: 2021/04/28 15:51:42 by amarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "get_next_line.h"
 
 size_t	ft_strlen(const char *str)
 {
@@ -53,16 +55,12 @@ char	*ft_strjoin(char *s1, char *s2)
 char	*ft_strchr(char *str, int c)
 {
 	int	index;
-	char			*str1;
 
-	str1 = (char *)str;
 	index = 0;
-
-	while (*(str1 +index))
+	while (str[index] != (char)c)
 	{
-		if (*(str1 + index) == (char)c)
-			return (str1 + index);
-		index++;
+		if (!str[index++])
+			return (0);
 	}
-	return (0);
+	return ((char *)&str[index]);
 }
