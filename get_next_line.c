@@ -6,7 +6,7 @@
 /*   By: amarquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 14:47:13 by amarquez          #+#    #+#             */
-/*   Updated: 2021/04/28 15:51:21 by amarquez         ###   ########.fr       */
+/*   Updated: 2021/04/30 01:42:39 by amarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,72 +15,83 @@
 int	get_next_line(int fd, char **line)
 {
 	//guarda posição onde é lido
-	static char	*keep[OPEN_MAX];
+	static char	*keep[1024];
 	//mantem linha lida e vai ser junta com a linha salva
-	char		buf[BUFFER_SIZE + 1];
+	char		*buf;
 	//conta nr linhas lidas
 	int 		n_read;
 	char 		*new_line;
 	int 		index;
 	char		*line_keep;
 	int			j;
-	int		len;
 
 	if (!line || (read(fd, 0 ,0) == -1) || BUFFER_SIZE < 1)
 		return (-1);
 	// n_read = -1 erro , zero EOF ou 1 linha lida
-	// determinar se é linha ou nao
 	
+
+	// esta parte lida quando nao existe o \n na parte a ser lida 
+	
+	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buf)
+		return (-1);
 	n_read = 1;
 	while (ft_strchr(keep[fd], '\n') == 0 && n_read != 0)
 	{
 		n_read = read(fd, buf, BUFFER_SIZE);
 		if (n_read == -1)
 		{
-			free(buf);
+			free (buf);
 			return(-1);
 		}
-		buf[n_read] = 0;
+		buf[n_read] = '\0';
 		keep[fd] = ft_strjoin(keep[fd],buf);
 	}
-	free (buf);
-	
-	// ....
-	len = ft_strlen(ft_strchr(buf, '\n'));	
-	new_line =malloc(sizeof(char) * (len + 1));
+	free(buf);
+	// .... Esta parte lida com o que vem antes do fim de linha	
+	index = 0;
+	while (keep[index] != '\n' && keep[index])
+	{
+		index++;
+	}
+	new_line = (char *)malloc(sizeof(char) * (index + 1));
 	if (!new_line)
 		return (0);
 	index = 0;
-	while (buf[index] != '\n' && buf[index])
+	while (keep[index] != '\n' && keep[index])
 	{
-		new_line[index] = buf[index];
+		new_line[index] = keep[index];
 		index++;
 	}
 	new_line[index] = '\0';
 	*line = new_line;
 	
-	// ....
+	// .... esta parte lida com o que vem depois do fim de linha
 	
-	index = ft_strlen(ft_strchr(buf, '\n'));
-	if (!buf[index])
+	index = 0;
+	while (keep[index] != '\n' && keep[index])
 	{
-		free(buf);
-		return (0);
-	}
-	line_keep = malloc(ft_strlen(buf) - index + 1);
-	index++;
-	j = 0;
-	while (buf[index])
-	{
-		line_keep[j] = buf[index];
-		j++;
 		index++;
 	}
-	line_keep = 0;
-	free(buf);
+	if (!keep[index])
+	{
+		free (buf);
+		return (0);
+	}
+	line_keep = malloc(sizeof(char) * (ft_strlen(keep) - index + 1));
+	if (!line_keep)
+		return (0);
+	index++;
+	j = 0;
+	while (keep[index])
+	{
+		line_keep[j++] = keep[index++];
+	}
+	line_keep[j] = '\0';
+	free (keep);
 	keep[fd] = line_keep;
-	
-	// ...
+		
+	// ... isto devolve o número devido
 	
 	if (n_read == 0)
 		return (0);

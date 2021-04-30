@@ -6,7 +6,7 @@
 /*   By: amarquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 14:47:28 by amarquez          #+#    #+#             */
-/*   Updated: 2021/04/28 15:51:42 by amarquez         ###   ########.fr       */
+/*   Updated: 2021/04/30 01:13:03 by amarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,23 @@ size_t	ft_strlen(const char *str)
 	}
 	return (len);
 }
+char	*ft_dup(char *s)
+{
+	char *new;
+	int	index;
+	
+	new = malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (!new)
+		return (0);
+	index = 0;
+	while (s[index])
+	{
+		new[index] = s[index];
+		index++;
+	}
+	new[index] = 0;
+	return (new);
+}
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char			*newstr;
@@ -32,7 +49,11 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	index = 0;
 	jindex = 0;
-	if (!s1 || !s2)
+	
+	if (!s1)
+		return (ft_dup(s2));
+	
+	if (!s2)
 		return (0);
 	newstr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!newstr)
@@ -55,12 +76,31 @@ char	*ft_strjoin(char *s1, char *s2)
 char	*ft_strchr(char *str, int c)
 {
 	int	index;
+	char			*str1;
+
+	str1 = (char *)str;
+	index = 0;
+
+	while (*(str1 +index))
+	{
+		if (*(str1 + index) == (char)c)
+			return (str1 + index);
+		index++;
+	}
+	return (0);
+}
+
+void	*ft_bzero(void	*s, size_t n)
+{
+	size_t	index;
+	unsigned char *s1;
 
 	index = 0;
-	while (str[index] != (char)c)
+	s1 = (unsigned char *)s;
+	while (index < n)
 	{
-		if (!str[index++])
-			return (0);
+		s1[index] = 0;
+		index++;
 	}
-	return ((char *)&str[index]);
+	return (s1);
 }
