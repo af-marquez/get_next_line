@@ -6,7 +6,7 @@
 /*   By: amarquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 14:47:13 by amarquez          #+#    #+#             */
-/*   Updated: 2021/04/30 01:42:39 by amarquez         ###   ########.fr       */
+/*   Updated: 2021/04/30 15:57:04 by amarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,16 @@
 int	get_next_line(int fd, char **line)
 {
 	//guarda posição onde é lido
-	static char	*keep[1024];
+	static char	*keep[OPEN_MAX];
 	//mantem linha lida e vai ser junta com a linha salva
 	char		*buf;
 	//conta nr linhas lidas
 	int 		n_read;
-	char 		*new_line;
-	int 		index;
-	char		*line_keep;
-	int			j;
+	char		*tmp;
 
 	if (!line || (read(fd, 0 ,0) == -1) || BUFFER_SIZE < 1)
 		return (-1);
 	// n_read = -1 erro , zero EOF ou 1 linha lida
-	
-
 	// esta parte lida quando nao existe o \n na parte a ser lida 
 	
 	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
@@ -45,54 +40,16 @@ int	get_next_line(int fd, char **line)
 			return(-1);
 		}
 		buf[n_read] = '\0';
-		keep[fd] = ft_strjoin(keep[fd],buf);
+		tmp = ft_strjoin(keep[fd],buf);
+		free(keep[fd]);
+		keep[fd] = tmp;
 	}
 	free(buf);
-	// .... Esta parte lida com o que vem antes do fim de linha	
-	index = 0;
-	while (keep[index] != '\n' && keep[index])
-	{
-		index++;
-	}
-	new_line = (char *)malloc(sizeof(char) * (index + 1));
-	if (!new_line)
-		return (0);
-	index = 0;
-	while (keep[index] != '\n' && keep[index])
-	{
-		new_line[index] = keep[index];
-		index++;
-	}
-	new_line[index] = '\0';
-	*line = new_line;
-	
+	// .... Esta parte lida com o que vem antes do fim de linha	 e lanca parao pointer do GNL
+	*line = first_trt(keep[fd]);
 	// .... esta parte lida com o que vem depois do fim de linha
-	
-	index = 0;
-	while (keep[index] != '\n' && keep[index])
-	{
-		index++;
-	}
-	if (!keep[index])
-	{
-		free (buf);
-		return (0);
-	}
-	line_keep = malloc(sizeof(char) * (ft_strlen(keep) - index + 1));
-	if (!line_keep)
-		return (0);
-	index++;
-	j = 0;
-	while (keep[index])
-	{
-		line_keep[j++] = keep[index++];
-	}
-	line_keep[j] = '\0';
-	free (keep);
-	keep[fd] = line_keep;
-		
+	keep[fd] = second_trt(keep[fd]);
 	// ... isto devolve o número devido
-	
 	if (n_read == 0)
 		return (0);
 	else

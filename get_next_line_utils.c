@@ -6,7 +6,7 @@
 /*   By: amarquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 14:47:28 by amarquez          #+#    #+#             */
-/*   Updated: 2021/04/30 01:13:03 by amarquez         ###   ########.fr       */
+/*   Updated: 2021/04/30 15:57:09 by amarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*ft_dup(char *s)
 		new[index] = s[index];
 		index++;
 	}
-	new[index] = 0;
+	new[index] = '\0';
 	return (new);
 }
 char	*ft_strjoin(char *s1, char *s2)
@@ -80,7 +80,8 @@ char	*ft_strchr(char *str, int c)
 
 	str1 = (char *)str;
 	index = 0;
-
+	if (!str)
+		return (0);
 	while (*(str1 +index))
 	{
 		if (*(str1 + index) == (char)c)
@@ -90,17 +91,57 @@ char	*ft_strchr(char *str, int c)
 	return (0);
 }
 
-void	*ft_bzero(void	*s, size_t n)
+char	*second_trt(char *s)
 {
-	size_t	index;
-	unsigned char *s1;
+	int		i;
+	int		j;
+	char	*line_keep;
 
-	index = 0;
-	s1 = (unsigned char *)s;
-	while (index < n)
+	if (!s)
+		return (0);
+	i = 0;
+	while(s[i])
+		i++;
+	if (!s[i])
 	{
-		s1[index] = 0;
-		index++;
+		free (s);
+		return(0);
 	}
-	return (s1);
+	line_keep = (char *)malloc(sizeof(char) * (ft_strlen(s) - i + 1));
+	if (!line_keep)
+		return (0);
+	i++;
+	j = 0;
+	while (s[i])
+	{
+		line_keep[i] = s[i];
+		i++;
+		j++;
+	}
+	line_keep[i] ='\0';
+	free (s);
+	return (line_keep);
+}
+
+char	*first_trt(char *s)
+{
+	int		i;
+	char	*new_line;
+
+	if (!s)
+		return (0);
+	i = 0;
+	while (s[i] !='\n' && s[i])
+		i++;
+	new_line = (char *)malloc(sizeof(char) * (i + 1));
+	if (!new_line)
+		return (0);
+	i = 0;
+	while (s[i] != '\n' && s[i])
+	{
+		new_line[i] = s[i];
+		i++;
+	}
+	new_line[i] = '\0';
+	return (new_line);
 }
