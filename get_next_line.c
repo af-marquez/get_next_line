@@ -6,7 +6,7 @@
 /*   By: amarquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 14:47:13 by amarquez          #+#    #+#             */
-/*   Updated: 2021/04/30 15:57:04 by amarquez         ###   ########.fr       */
+/*   Updated: 2021/05/01 19:06:43 by ipenas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	get_next_line(int fd, char **line)
 {
 	//guarda posição onde é lido
-	static char	*keep[OPEN_MAX];
+	static char	*keep[1024];
 	//mantem linha lida e vai ser junta com a linha salva
 	char		*buf;
 	//conta nr linhas lidas
@@ -45,7 +45,7 @@ int	get_next_line(int fd, char **line)
 		keep[fd] = tmp;
 	}
 	free(buf);
-	// .... Esta parte lida com o que vem antes do fim de linha	 e lanca parao pointer do GNL
+	// .... Esta parte lida com o que vem antes do fim de linha e lanca parao pointer do GNL
 	*line = first_trt(keep[fd]);
 	// .... esta parte lida com o que vem depois do fim de linha
 	keep[fd] = second_trt(keep[fd]);
