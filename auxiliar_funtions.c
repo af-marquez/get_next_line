@@ -64,7 +64,7 @@ char	*ft_strchr(char *s, int c)
 {
 	char			*str;
 
-	str = (char *)str;
+	str = (char *)s;
 	if (!str)
 		return (0);
 	while (*str != c)
