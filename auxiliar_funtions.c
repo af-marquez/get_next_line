@@ -105,6 +105,7 @@ char	*second_trt(char *s)
 		j++;
 	}
 	line_keep[i] ='\0';
+	free(line_keep);
 	return (line_keep);
 }
 
